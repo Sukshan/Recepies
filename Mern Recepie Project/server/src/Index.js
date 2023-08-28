@@ -3,6 +3,10 @@ import cors from "cors"
 import mongoose from "mongoose"  
 // mongoose is an orm for mongodb
 
+
+import { UserRouter } from "./routes/Users"; "./routes/Users.js"
+
+
 import dotenv from "dotenv"
 dotenv.config()
 
@@ -10,6 +14,8 @@ const app = express()
 
 app.use(express.json());
 app.use(cors());
+
+app.use("/auth", UserRouter) 
 
 
 //accessing the mongodb password from .env file
