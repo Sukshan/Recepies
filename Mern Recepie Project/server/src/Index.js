@@ -4,7 +4,7 @@ import mongoose from "mongoose"
 // mongoose is an orm for mongodb
 
 
-import { UserRouter } from "./routes/Users"; "./routes/Users.js"
+import { userRouter } from "./routes/Users.js"
 
 
 import dotenv from "dotenv"
@@ -15,7 +15,7 @@ const app = express()
 app.use(express.json());
 app.use(cors());
 
-app.use("/auth", UserRouter) 
+app.use("/auth", userRouter) 
 
 
 //accessing the mongodb password from .env file
