@@ -2,11 +2,7 @@ import express from "express";
 import cors from "cors"
 import mongoose from "mongoose"  
 // mongoose is an orm for mongodb
-
-
 import { userRouter } from "./routes/Users.js"
-
-
 import dotenv from "dotenv"
 dotenv.config()
 
