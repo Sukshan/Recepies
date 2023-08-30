@@ -3,20 +3,22 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {Home} from "./pages/home"
 import {Auth} from "./pages/auth"
-import {SavedRecepies} from "./pages/saved-recepies"
-import {CreateRecepies} from "./pages/create-recepie"
-
+import {SavedRecipes} from "./pages/saved-recipes"
+import {CreateRecipes} from "./pages/create-recipe"
+import {Navbar} from "./components/navbar"
 
 
 function App(){
   return(
     <div className='App'>
+
       <Router>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/auth" element={<Auth />}/>
-          <Route path="/create-recepies" element={<CreateRecepies />}/>
-          <Route path="/saved-recepies" element={<SavedRecepies />}/>
+          <Route path="/create-recipes" element={<CreateRecipes />}/>
+          <Route path="/saved-recipes" element={<SavedRecipes />}/>
         </Routes>
       </Router>
     </div>

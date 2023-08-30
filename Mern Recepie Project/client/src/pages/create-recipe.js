@@ -1,9 +1,9 @@
 import React from "react"
-export const SavedRecepies = () => {
+export const CreateRecipes = () => {
     return(
         <div>
             <h1>
-                saved recepies
+                create recipes
             </h1>
         </div>
     )
