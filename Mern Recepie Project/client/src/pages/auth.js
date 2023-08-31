@@ -1,10 +1,95 @@
-import React from "react"
+import React, { useState } from "react"
+import axios from "axios"
+import {useCookies} from "react-cookie"
+import { useNavigate } from "react-router-dom"
+
+
 export const Auth = () => {
     return(
-        <div>
-            <h1>
-                auth
-            </h1>
+        <div className="auth">
+            <Login />
+            <Register />
+        </div>
+    )
+}
+
+const Login = () => {
+
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [_, setCookies] = useCookies(["access_token"])
+    const navigate = useNavigate()
+
+    const onsubmit = async (event) => {
+        event.preventDefault()
+        try{
+            const response = await axios.post("http://localhost:3001/auth/login", {username, password})
+            setCookies("access_token", response.data.token)
+            window.localStorage.setItem("userID", response.data.userID)
+            navigate("/")
+        }
+        catch(err){
+            console.error(err)
+        }
+    }
+
+
+    return(
+        <Form 
+            username={username} 
+            setUsername={setUsername} 
+            password={password} 
+            setPassword={setPassword} 
+            label="Login" 
+            onsubmit={onsubmit}
+        />
+    )
+}
+
+const Register = () => {
+
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+
+    const onsubmit = async (event) => {
+        event.preventDefault()
+        try{
+            await axios.post("http://localhost:3001/auth/register", {username, password})
+            alert("Registration completed, now you can login")
+        }
+        catch(err){
+            console.error(err)
+        }
+    }
+    
+    return(
+        <Form 
+            username={username} 
+            setUsername={setUsername} 
+            password={password} 
+            setPassword={setPassword} 
+            label="Register" 
+            onsubmit={onsubmit}
+        />
+    )
+}
+
+
+const Form = ({username, setUsername, password, setPassword, label, onsubmit}) => {
+    return(
+        <div className="auth-container">
+            <form onSubmit={onsubmit}>
+                <h2>{label}</h2>
+                <div className="form-group"> 
+                    <label htmlFor="username">Username: </label>
+                    <input type="text" id="username" value={username} onChange={(event) => setUsername(event.target.value)}></input>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password: </label>
+                    <input type="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)}></input>
+                </div>
+                <button type="submit">{label}</button>
+            </form>
         </div>
     )
 }
